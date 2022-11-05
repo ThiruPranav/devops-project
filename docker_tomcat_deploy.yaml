@@ -1,8 +1,6 @@
 ---
   - hosts: docker
     become: true
-    vars:
-      Path : "{{ path }}"
     tasks:
      - name: stop previous version docker
        shell: docker stop app
@@ -10,7 +8,15 @@
        shell: docker rm -f app	  
      - name: remove docker images
        shell: docker image rm -f web
-     - name: create docker image
-       shell: docker build -t web "{{ Path }}"
+     - name: copy dockerfile
+       copy:
+         src: Dockerfile
+         dest: /home/ansible
+     - name: copy dockerfile
+       copy:
+         src: target/my-war.war
+         dest: /home/ansible
+     - name: build image
+       shell: docker build -t web Dockerfile1 .
      - name: deploy tomcat container
        shell: docker run -d -p 8090:8080 --name app web
