@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('scm') {
+            steps {
+               git 'https://github.com/ThiruPranav/devops-project.git'
+            }
+        }
+		stage('build') {
+            steps {
+               sh 'mvn clean package'
+            }
+        }
+     stage('docker_build') {
+            steps {
+               sh 'docker build -t web .'
+            }
+        }
+       stage('deploy_tomcat_container') {
+            steps {
+               sh 'docker run -d -p 8090:8080 --name app web'
+            }
+        }
