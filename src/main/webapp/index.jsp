@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World from SCM!</h2>
+<h2>Tomcat deployment with ansible</h2>
 </body>
 </html>
