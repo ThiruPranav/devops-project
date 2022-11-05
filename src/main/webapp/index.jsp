@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Tomcat deployment with ansible</h2>
+<h2>Docker tomcat container deployment</h2>
 </body>
 </html>
