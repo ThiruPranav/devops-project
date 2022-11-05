@@ -1,6 +1,8 @@
 ---
   - hosts: docker
     become: true
+	vars:
+	  Path : "{{ path }}"
     tasks:
      - name: stop previous version docker
        shell: docker stop app
@@ -9,6 +11,6 @@
      - name: remove docker images
        shell: docker image rm -f web
      - name: create docker image
-       shell: docker build -t web .
+       shell: docker build -t web "{{ Path }}"
      - name: deploy tomcat container
        shell: docker run -d -p 8090:8080 --name app web
