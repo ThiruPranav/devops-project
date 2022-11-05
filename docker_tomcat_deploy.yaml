@@ -17,6 +17,6 @@
          src: target/my-war.war
          dest: /home/ansible
      - name: build image
-       shell: docker build -t web Dockerfile1 .
+       shell: docker build -t web -f Dockerfile1 .
      - name: deploy tomcat container
        shell: docker run -d -p 8090:8080 --name app web
