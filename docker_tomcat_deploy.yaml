@@ -1,0 +1,14 @@
+---
+  - hosts: docker
+    become: true
+    tasks:
+     - name: stop previous version docker
+       shell: docker stop app
+     - name: remove stopped container
+       shell: docker rm -f app	  
+     - name: remove docker images
+       shell: docker image rm -f web
+     - name: create docker image
+       shell: docker build -t web .
+     - name: deploy tomcat container
+       shell: docker run -d -p 8090:8080 --name app web
