@@ -8,7 +8,13 @@
        shell: docker rm -f app	  
      - name: remove docker images
        shell: docker image rm -f web
+     - name: copy dockerfile
+       copy:
+         src: Dockerfile
+         dest: /home/ansible
      - name: create docker image
        shell: docker build -t web .
      - name: deploy tomcat container
        shell: docker run -d -p 8090:8080 --name app web
+     - name: Rremove dockerfile
+       shell: rm Dockerfile
