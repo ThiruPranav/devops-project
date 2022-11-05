@@ -1,8 +1,8 @@
 ---
   - hosts: docker
     become: true
-	vars:
-	  Path : "{{ path }}"
+    vars:
+      Path : "{{ path }}"
     tasks:
      - name: stop previous version docker
        shell: docker stop app
