@@ -1,0 +1,6 @@
+---
+- hosts: tomcat
+  become: true
+  tasks:
+    - name: Deploy in tomcat
+      shell: cp ./target/my-war.war /opt/tomcat/webapps/
