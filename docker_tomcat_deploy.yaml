@@ -10,7 +10,7 @@
        shell: docker image rm -f web
      - name: copy dockerfile
        copy:
-         src: Dockerfile
+         src: Dockerfile1
          dest: /home/ansible
      - name: copy dockerfile
        copy:
