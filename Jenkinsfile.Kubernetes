@@ -4,6 +4,8 @@ pipeline {
     }
     environment {
         dockerImage = ''
+        imagename = "thirupranav/app"
+        registryCredential = 'dockerhub'
     }
     
     stages {
@@ -20,8 +22,8 @@ pipeline {
 		stage('build image') {
             steps {
                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                 dockerImage = docker.build('thirupranav/app')
-                dockerImage.push('thirupranav/app')
+                 dockerImage = docker.build imagename
+                dockerImage.push('latest')
 }
             }
         }
