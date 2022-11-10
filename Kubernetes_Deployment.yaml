@@ -15,7 +15,7 @@ spec:
         app: demo-app
     spec:
       containers:
-      - image: app:latest
-        name: simple-web
+      - image: thirupranav/app
+        name: demo-app
         ports:
         - containerPort: 8080
