@@ -31,8 +31,8 @@ pipeline {
         }*/
         stage('Kubernetes_deployment') {
           steps {
-               sh """sudo ansible-playbook DockerAnsibleDeploy.yaml --extra-vars '{"path": "${WORKSPACE}"}'"""
-               sh 'sudo ansible-playbook Kubernetes_Deploy.yaml'
+               sh """ansible-playbook DockerAnsibleDeploy.yaml --extra-vars '{"path": "${WORKSPACE}"}'"""
+               sh 'ansible-playbook Kubernetes_Deploy.yaml'
             }
         }
     }
