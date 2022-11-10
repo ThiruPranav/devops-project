@@ -18,7 +18,7 @@ pipeline {
             steps {
                sh 'mvn clean package'
             }
-        }
+        }/*
 		stage('build image') {
             steps {
                 script {
@@ -28,7 +28,7 @@ pipeline {
 }
                 }
             }
-        }
+        }*/
         stage('Kubernetes_deployment') {
           steps {
                sh 'ansible-playbook Kubernetes_Deploy.yaml'
