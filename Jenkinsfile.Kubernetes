@@ -17,8 +17,8 @@ pipeline {
 		stage('build image') {
             steps {
                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                 docker.build('app')
-                 docker.push('app')
+                 docker.build('thirupranav/app')
+                 docker.push('thirupranav/app')
 }
             }
         }
