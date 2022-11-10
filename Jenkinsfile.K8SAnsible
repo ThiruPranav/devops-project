@@ -1,0 +1,38 @@
+pipeline {
+    agent {
+    label ('docker')
+    }
+    environment {
+        dockerImage = ''
+        imagename = "thirupranav/app"
+        registryCredential = 'dockerhub'
+    }
+    
+    stages {
+        stage('scm') {
+            steps {
+               git 'https://github.com/ThiruPranav/devops-project.git'
+            }
+        }
+		stage('build') {
+            steps {
+               sh 'mvn clean package'
+            }
+        }
+		stage('build image') {
+            steps {
+                script {
+               withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
+                 dockerImage = docker.build imagename
+                dockerImage.push('latest')
+}
+                }
+            }
+        }
+        stage('Kubernetes_deployment') {
+          steps {
+               sh 'ansible-playbook Kubernetes_Deploy.yaml'
+            }
+        }
+    }
+}
