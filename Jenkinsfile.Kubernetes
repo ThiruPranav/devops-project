@@ -2,10 +2,7 @@ pipeline {
     agent {
     label ('docker')
     }
-    environment {
-        
-    }
-
+    
     stages {
         stage('scm') {
             steps {
