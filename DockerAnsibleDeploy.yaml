@@ -1,8 +1,6 @@
 ---
 - hosts: docker
   become: yes
-  vars:
-    path : "{{ PATH }}"
   tasks:
     - name: Install pip
       apt: name=pip state=present
@@ -16,7 +14,7 @@
 
     - name: Copy dockerfile
       copy:
-        src: "{{ path }}"/Dockerfile
+        src: "{{ path }}/Dockerfile"
         dest: /home/ubuntu
 
 
