@@ -17,7 +17,8 @@
         src: "{{ path }}/Dockerfile"
         dest: /home/ubuntu
 
-
+    - name: docker-login
+      shell: docker login
 
     - name: Build Docker image from Dockerfile
       docker_image:
