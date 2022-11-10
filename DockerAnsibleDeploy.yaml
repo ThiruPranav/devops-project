@@ -18,7 +18,10 @@
         dest: /home/ubuntu
 
     - name: docker-login
-      shell: docker login
+      docker_login:
+        registry: docker.io
+        username: thirupranav
+        password: dckr_pat_crL-4_RYwChzQLajNfsFGDKLiPs
 
     - name: Build Docker image from Dockerfile
       docker_image:
