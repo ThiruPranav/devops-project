@@ -1,0 +1,27 @@
+pipeline {
+    agent {
+    label ('docker')
+    }
+
+    stages {
+        stage('scm') {
+            steps {
+               git 'https://github.com/ThiruPranav/devops-project.git'
+            }
+        }
+		stage('build') {
+            steps {
+               sh 'mvn clean package'
+            }
+        }
+		stage('build image') {
+            steps {
+               sh 'docker build -t app .'
+            }
+        }
+        stage('Kubernetes_deployment')
+          steps {
+               sh 'kubectl apply -f Kubernetes_Deployment.yaml'
+            }
+    }
+}
