@@ -1,0 +1,62 @@
+---
+- hosts: docker
+  gather_facts: false
+  tasks:
+    # Create Kubernetes namespace to run adjust task.
+    - name: Create a Service for adjust web server.
+      k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: demo-app
+
+    # Create Kubernetes resources to run adjust task.
+    - name: Create a Deployment for adjust task.
+      k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: demo-app
+            namespace: demo-app
+            labels:
+              app: demo-app
+          spec:
+            replicas: 2
+            selector:
+              matchLabels:
+                app: demo-app
+            template:
+              metadata:
+                labels:
+                  app: demo-app
+              spec:
+                containers:
+                  - name: demo-app
+                    image: thirupranav/app
+                    ports:
+                    - containerPort: 8080
+
+
+    - name: Create a Service for adjust web server.
+      k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: demo-app
+            namespace: demo-app
+          spec:
+            selector:
+              app: demo-app
+            type: LoadBalancer
+            ports:
+              - name: demo-app
+                protocol: TCP
+                port: 32000
+                targetPort: 8080
+                nodePort: 30000
