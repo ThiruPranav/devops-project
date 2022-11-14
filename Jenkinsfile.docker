@@ -32,7 +32,7 @@ environment {
        stage('deploy_tomcat_container') {
             steps {
                script {
-                  dockerContainer = sh 'docker ps --format '{{.Names}}''
+                  dockerContainer = sh(returnStdout: true, script: "docker ps --format '{{.Names}}'").trim()
                   if ("$dockerContainer" == "app")
                   {
                      sh 'docker rm -f app'
