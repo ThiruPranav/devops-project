@@ -5,12 +5,8 @@
     - name: Install pip
       apt: name=pip state=present
 
-
-
     - name: install docker-py
       pip: name=docker-py
-
-
 
     - name: Copy dockerfile
       copy:
@@ -44,14 +40,18 @@
     
     - name: Run a container
       docker_container:
-        image: web:latest
+        image: thirupranav/web:latest
         name: app
         state: started
         ports:
           - "8090:8080"
-
  
     - name: remove dockerfile
       file:
         path: /home/ubuntu/Dockerfile
+        state: absent
+
+    - name: remove artifacts
+      file:
+        path: /home/ubuntu/target
         state: absent
