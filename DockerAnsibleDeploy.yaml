@@ -16,6 +16,11 @@
       copy:
         src: "{{ path }}/Dockerfile"
         dest: /home/ubuntu
+    
+    - name: Copy artifact
+      copy:
+        src: "{{ path }}/target"
+        dest: /home/ubuntu
 
     - name: docker-login
       docker_login:
