@@ -2,7 +2,11 @@ pipeline {
     agent {
     label ('docker') 
     }
-
+environment {
+        dockerImage = ''
+        imagename = "thirupranav/app"
+        registryCredential = 'dockerhub'
+    }
     stages {
         stage('scm') {
             steps {
@@ -14,14 +18,20 @@ pipeline {
                sh 'mvn clean package'
             }
         }
-     stage('docker_build') {
+     stage('build image') {
             steps {
-               sh 'docker build -t web .'
+                script {
+               withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
+                 dockerImage = docker.build imagename
+                dockerImage.push('latest')
+}
+                }
             }
-        }
+     }
+
        stage('deploy_tomcat_container') {
             steps {
-               sh 'docker run -d -p 8090:8080 --name app web'
+               sh 'docker run -d -p 8090:8080 --name app thirupranav/app'
             }
         }
 	}
