@@ -24,6 +24,11 @@
         username: thirupranav
         password: dckr_pat_crL-4_RYwChzQLajNfsFGDKLiPs
 
+    - name: remove Docker image
+      docker_image:
+        name: thirupranav/app
+        state: absent
+
     - name: Build Docker image from Dockerfile
       docker_image:
         name: thirupranav/app
