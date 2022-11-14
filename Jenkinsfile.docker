@@ -36,6 +36,7 @@ environment {
                   if ("$dockerContainer" == "app")
                   {
                      sh 'docker rm -f app'
+                     sh 'docker run -d -p 8090:8080 --name app thirupranav/app'
                   }
                   else {
                      sh 'docker run -d -p 8090:8080 --name app thirupranav/app'
