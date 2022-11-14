@@ -4,6 +4,7 @@ pipeline {
     }
 environment {
         dockerImage = ''
+        dockerContainer = ''
         imagename = "thirupranav/app"
         registryCredential = 'dockerhub'
     }
@@ -31,7 +32,17 @@ environment {
 
        stage('deploy_tomcat_container') {
             steps {
-               sh 'docker run -d -p 8090:8080 --name app thirupranav/app'
+               script {
+                  dockerContainer = docker ps --format '{{.Names}}'
+                  if (dockerContainer == "app")
+                  {
+                     sh 'docker rm -f app'
+                  }
+                  else {
+                     sh 'docker run -d -p 8090:8080 --name app thirupranav/app'
+                  }
+               }
+               
             }
         }
 	}
