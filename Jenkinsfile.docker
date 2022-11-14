@@ -32,8 +32,8 @@ environment {
        stage('deploy_tomcat_container') {
             steps {
                script {
-                  def dockerContainer = docker ps --format '{{.Names}}'
-                  if (dockerContainer == "app")
+                  dockerContainer = sh 'docker ps --format '{{.Names}}''
+                  if ("$dockerContainer" == "app")
                   {
                      sh 'docker rm -f app'
                   }
