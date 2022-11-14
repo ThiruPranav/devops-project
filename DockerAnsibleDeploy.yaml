@@ -36,6 +36,19 @@
           path: /home/ubuntu
         state: present
         push: yes
+    
+    - name: Remove container named app
+      docker_container:
+        name: app
+        state: absent    
+    
+    - name: Run a container
+      docker_container:
+        image: web:latest
+        name: app
+        state: started
+        ports:
+          - "8090:8080"
 
  
     - name: remove dockerfile
