@@ -40,7 +40,7 @@
     
     - name: Run a container
       docker_container:
-        image: thirupranav/web:latest
+        image: thirupranav/app
         name: app
         state: started
         ports:
