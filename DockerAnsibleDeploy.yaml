@@ -23,7 +23,12 @@
         registry: docker.io
         username: thirupranav
         password: dckr_pat_crL-4_RYwChzQLajNfsFGDKLiPs
-
+    
+    - name: Remove container named app
+      docker_container:
+        name: app
+        state: absent   
+        
     - name: remove Docker image
       docker_image:
         name: thirupranav/app
@@ -38,11 +43,7 @@
         state: present
         push: yes
     
-    - name: Remove container named app
-      docker_container:
-        name: app
-        state: absent    
-    
+        
     - name: Run a container
       docker_container:
         image: thirupranav/app
